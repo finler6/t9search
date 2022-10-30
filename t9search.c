@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int equals_char(char c, char num) { // porovna znak s cislici, pokud cislici nenalezne, porovná znak se znaky přiřazenými cislici
+int equals_char(char c, char num) { // porovna znak s cislici, pokud cislici nenalezne, porovná znak se znaky prirazenymi cislici
     switch (num) { // prirazeni cislici znaku
         case '0':
             return c == '+' || c == '0';
