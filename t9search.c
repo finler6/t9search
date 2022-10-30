@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-int equals_char(char c, char num) { // porovná znak s číslicí, pokud číslici nenalezne, porovná znak se znaky přiřazenými číslici
-    switch (num) { // přiřazení číslici znaků
+int equals_char(char c, char num) { // porovna znak s cislici, pokud cislici nenalezne, porovná znak se znaky přiřazenými cislici
+    switch (num) { // prirazeni cislici znaku
         case '0':
             return c == '+' || c == '0';
         case '1':
@@ -27,58 +27,58 @@ int equals_char(char c, char num) { // porovná znak s číslicí, pokud čísli
     }
 }
 
-int is_substr_in_str(char* str, char* substr) { // zjistí, zda je podřetězec v řetězci
-    char *p1, *p2, *p3; // pomocné ukazatele
+int is_substr_in_str(char* str, char* substr) { // zjisti, zda je podretezec v retezci
+    char *p1, *p2, *p3; // pomocne ukazatele
 
-    p1 = str;  // p1 ukazuje na první znak str
-    p2 = substr;  // p2 ukazuje na první znak v substr(podřetězec)
+    p1 = str;  // p1 ukazuje na prvni znak str
+    p2 = substr;  // p2 ukazuje na prvni znak v substr(podretezec)
 
-    int flag = 0; // flag je proměnná, která nám řekne, zda jsme našli podřetězec v řetězci
+    int flag = 0; // flag je promenna, ktera nam rekne, zda jsme nasli podřetězec v retezci
 
-    for (int i = 0; str[i] != '\0'; i++) { // projdeme řetězec str
+    for (int i = 0; str[i] != '\0'; i++) { // projdeme retezec str
         if (equals_char(*p1, *p2)) {
-            p3 = p1; // p3 ukazuje na první znak řetězce str, který odpovídá prvnímu znaku podřetězce substr
-            for (int j = 0; substr[j] != '\0'; j++) { // projdeme podřetězec substr
-                if (equals_char(*p3, *p2)) { // pokud znak řetězce str odpovídá znaku podřetězce substr
-                    p3++; // posuneme se o jeden znak v řetězci str
+            p3 = p1; // p3 ukazuje na prvni znak retezce str, ktery odpovida prvnimu znaku podretezce substr
+            for (int j = 0; substr[j] != '\0'; j++) { // projdeme podretezec substr
+                if (equals_char(*p3, *p2)) { // pokud znak retezce str odpovida znaku podretezce substr
+                    p3++; // posuneme se o jeden znak v retezci str
                     p2++; // posuneme se o jeden znak v podřetězci substr
                 } else {
-                    break; // pokud se znaky nerovnají, přerušíme cyklus
+                    break; // pokud se znaky nerovnaji, prerusime cyklus
                 }
             }
-            if (*p2 == '\0') { // pokud jsme projeli celý podřetězec substr
+            if (*p2 == '\0') { // pokud jsme projeli cely podretezec substr
                 if (str[0] == '+' || (str[0] >= '0' && str[0] <= '9')) {
-                    return 1; // pokud je první znak řetězce str číslo nebo +, vracíme 1
+                    return 1; // pokud je prvni znak retezce str cislo nebo +, vracime 1
                 } else {
-                    // Uveďte výskyt velkými písmeny
-                    for (int j = 0; substr[j] != '\0'; j++) { // projdeme podřetězec substr
+                    // Uvedte vyskyt velkymi pismeny
+                    for (int j = 0; substr[j] != '\0'; j++) { // projdeme podretezec substr
                         str[i + j] -= 32;
                     }
                     flag = 1;
                 }
             }
-            p2 = substr; // vrátíme se na začátek podřetězce substr
+            p2 = substr; // vratime se na zacatek podretezce substr
         }
         p1++;
     }
     return flag;
 }
 
-int search_for_broken_sequences(char* str, char* substr) { // funkce, která hledá přerušenou sekvenci
-    int flag; // flag je proměnná, která nám řekne, zda jsme našli přerušenou sekvenci
+int search_for_broken_sequences(char* str, char* substr) { // funkce, ktera hleda prerusenou sekvenci
+    int flag; // flag je promenna, ktera nam rekne, zda jsme nasli prerusenou sekvenci
 
-    char* rest_of_str = str; // rest_of_str je ukazatel na začátek řetězce str
+    char* rest_of_str = str; // rest_of_str je ukazatel na zacatek retezce str
 
-    for (char* p_in_substr = substr; *p_in_substr != '\0'; p_in_substr++) { // projdeme podřetězec substr
+    for (char* p_in_substr = substr; *p_in_substr != '\0'; p_in_substr++) { // projdeme podretezec substr
         flag = 0;
-        for (char *p_in_str = rest_of_str; *p_in_str != '\0'; p_in_str++) { // projdeme řetězec str
+        for (char *p_in_str = rest_of_str; *p_in_str != '\0'; p_in_str++) { // projdeme retezec str
             rest_of_str++;
             if (equals_char(*p_in_str, *p_in_substr)) {
-                flag = 1; // pokud jsme našli znak, který odpovídá znaku v podřetězci substr, nastavíme flag na 1
+                flag = 1; // pokud jsme nasli znak, ktery odpovida znaku v podretezci substr, nastavime flag na 1
                 break;
             }
         }
-        if (!flag) { // pokud jsme nenašli znak, který odpovídá znaku v podřetězci substr, vracíme 0
+        if (!flag) { // pokud jsme nenasli znak, ktery odpovida znaku v podretezci substr, vracime 0
             return 0;
         }
     }
@@ -86,48 +86,48 @@ int search_for_broken_sequences(char* str, char* substr) { // funkce, která hle
 }
 
 int main(int argc, char *argv[]) {
-    char* substr = argv[1]; // podřetězec
-    int found = 0;  // 0 znamená nenalezeno, 1 znamená, že v telefonu nebo ve jméně byl alespoň jeden výskyt
-    int search_in_names = 0;  // 0 znamená hledání v číslech, 1 znamená hledání ve jménech
+    char* substr = argv[1]; // podretezec
+    int found = 0;  // 0 znamena nenalezeno, 1 znamena, ze v telefonu nebo ve jmene byl alespon jeden vyskyt
+    int search_in_names = 0;  // 0 znamena hledani v čislech, 1 znamena hledani ve jmenech
 
 
-    char buffer[101]; // buffer pro načítání řádků ze souboru
-    int buffer_len = 0; // délka řádku
-    char c; // proměnná pro načítání znaků ze souboru
+    char buffer[101]; // buffer pro nacitani radku ze souboru
+    int buffer_len = 0; // delka radku
+    char c; // promenna pro nacitani znaku ze souboru
 
     char name[100];
 
-    for (int i = 0;;) { // načítáme znaky ze souboru
-        c = getc(stdin); // načteme znak ze souboru
+    for (int i = 0;;) { // nacitame znaky ze souboru
+        c = getc(stdin); // nacteme znak ze souboru
         if (c == EOF) { // pokud jsme na konci souboru
-            if (!search_in_names && !found) { // pokud jsme hledali v číslech a nebyl nalezen žádný výskyt
+            if (!search_in_names && !found) { // pokud jsme hledali v cislech a nebyl nalezen zadny vyskyt
                 i = 0;
                 buffer_len = 0;
-                fseek(stdin, 0, SEEK_SET);  // přetočit soubor na začátek
-                search_in_names = 1; // přepneme se do hledání ve jménech
+                fseek(stdin, 0, SEEK_SET);  // pretocit soubor na zacatek
+                search_in_names = 1; // prepneme se do hledani ve jmenech
                 continue;
             }
             break;
         }
-        if (c == '\n') { // pokud jsme na konci řádku
+        if (c == '\n') { // pokud jsme na konci radku
             if (i % 2 == 0) {
-                for (int j = 0; j <= buffer_len; j++) { // projdeme řádek
-                    name[j] = buffer[j]; // uložíme jméno do proměnné name
+                for (int j = 0; j <= buffer_len; j++) { // projdeme radek
+                    name[j] = buffer[j]; // ulozime jmeno do promenne name
                 }
-            } else { // pokud jsme na řádku s číslem
-                if (argc == 1) { // pokud nebyl zadán žádný podřetězec
-                    printf("%s, %s\n", name, buffer); // vypíšeme jméno a číslo
+            } else { // pokud jsme na radku s cislem
+                if (argc == 1) { // pokud nebyl zadan zadny podretezec
+                    printf("%s, %s\n", name, buffer); // vypiseme jmeno a cislo
                     found = 1;
                 }
-                else if (!search_in_names && is_substr_in_str(buffer, substr)) { // pokud jsme hledali v číslech a byl nalezen výskyt
-                    printf("%s, %s\n", name, buffer); // vypíšeme jméno a číslo
+                else if (!search_in_names && is_substr_in_str(buffer, substr)) { // pokud jsme hledali v cislech a byl nalezen vyskyt
+                    printf("%s, %s\n", name, buffer); // vypiseme jmeno a cislo
                     found = 1;
                 }
-                else if (search_in_names && is_substr_in_str(name, substr)) { // pokud jsme hledali ve jménech a byl nalezen výskyt
+                else if (search_in_names && is_substr_in_str(name, substr)) { // pokud jsme hledali ve jmenech a byl nalezen vyskyt
                     printf("%s, %s\n", name, buffer);
                     found = 1;
                 }
-                else if (search_for_broken_sequences(name, substr) || search_for_broken_sequences(buffer, substr)) { // pokud jsme našli přerušenou sekvenci
+                else if (search_for_broken_sequences(name, substr) || search_for_broken_sequences(buffer, substr)) { // pokud jsme nasli prerusenou sekvenci
                     printf("%s, %s\n", name, buffer);
                     found = 1;
                 }
@@ -137,18 +137,18 @@ int main(int argc, char *argv[]) {
             i++;
             continue;
         }
-        if (buffer_len > 100) { // pokud je řádek delší než 100 znaků
-            printf("Error: buffer overflow\n"); // vypíšeme chybu
-            fprintf(stderr, "Error: buffer overflow\n"); // vypíšeme chybu na stderr
+        if (buffer_len > 100) { // pokud je radek delsi nez 100 znaku
+            printf("Error: buffer overflow\n"); // vypiseme chybu
+            fprintf(stderr, "Error: buffer overflow\n"); // vypiseme chybu na stderr
             return 1;
         }
-        buffer[buffer_len++] = c >= 'A' && c <= 'Z' ? c + 32 : c; // uložíme znak do bufferu
-        buffer[buffer_len] = '\0'; // ukončíme řetězec
+        buffer[buffer_len++] = c >= 'A' && c <= 'Z' ? c + 32 : c; // ulozime znak do bufferu
+        buffer[buffer_len] = '\0'; // ukoncime retezec
     }
 
-    if (!found) { // pokud nebyl nalezen žádný výskyt
-        printf("Not found\n"); // vypíšeme, že nebyl nalezen žádný výskyt
-        fprintf(stderr,"Not found\n"); // vypíšeme, že nebyl nalezen žádný výskyt na stderr
+    if (!found) { // pokud nebyl nalezen zadny vyskyt
+        printf("Not found\n"); // vypiseme, ze nebyl nalezen zadny vyskyt
+        fprintf(stderr,"Not found\n"); // vypiseme, že nebyl nalezen zadny vyskyt na stderr
         return 1;
     }
 
